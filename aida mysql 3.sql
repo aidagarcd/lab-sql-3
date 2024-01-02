@@ -8,27 +8,12 @@
 -- How many rentals were in the last month of activity?
 
 use sakila;
-select distinct actor_id from actor;
+select distinct last_name from actor;
 select distinct language_id from film;
-select distinct film_id from film_category where category_id = 13
-
-use sakila;
-
-SELECT film_id, title, length
-FROM film
-WHERE release_year = 2006
-ORDER BY length DESC
-LIMIT 10;
-
+SELECT COUNT(*) AS count_pg13 FROM film WHERE rating = 'PG-13';
+SELECT COUNT(*) AS length FROM film WHERE release_year = 2006 ORDER BY length LIMIT 10; 
 SELECT DATEDIFF(NOW(), 'fecha_inicio_operaciones') AS days_operating;
-
-SELECT *,
-       MONTH(rental_date) AS rental_month,
-       DAYNAME(rental_date) AS rental_weekday
-FROM rental
-LIMIT 20;
-
-
+SELECT rental_id, rental_date, MONTH(rental_date) AS rental_month, DAYNAME(rental_date) AS rental_weekday FROM rental LIMIT 20;
 SELECT *,
        DAYNAME(rental_date) AS rental_weekday,
        case
@@ -37,8 +22,6 @@ SELECT *,
 	end as 'daytype'
 FROM rental
 LIMIT 20;
-
-select * from rental order by  return_date desc limit 1;
 
 select count(*) from rental where month(return_date) = 8 and year(return_date) = 2005;
 
